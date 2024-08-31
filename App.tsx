@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { Dimensions, StyleSheet, Switch } from "react-native";
+import { Dimensions, StyleSheet, Switch, useColorScheme } from "react-native";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -32,7 +32,11 @@ const SIZE = width * 0.7;
 type Theme = "dark" | "light";
 
 export default function App() {
-  const [theme, setTheme] = React.useState<Theme>("light");
+  const colorScheme = useColorScheme();
+
+  console.log({ colorScheme });
+
+  const [theme, setTheme] = React.useState<Theme>(colorScheme ?? "dark");
 
   const themeValue = useDerivedValue(() => {
     return withTiming(theme === "light" ? 0 : 1);
